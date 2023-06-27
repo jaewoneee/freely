@@ -1,7 +1,7 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import styled, { css } from "styled-components/native";
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { Text, View } from 'react-native';
+import styled from 'styled-components/native';
 
 export default function App() {
   return (
