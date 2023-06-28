@@ -26,5 +26,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'react', 'prettier'],
-  rules: { 'prettier/prettier': ['error', { singleQuote: true }] },
+  rules: {
+    'prettier/prettier': ['error', { singleQuote: true }],
+    'react/prop-types': 0,
+  },
 };
