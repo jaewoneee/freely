@@ -1,33 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, useColorScheme } from 'react-native';
-import { useFonts, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import {
+  useFonts,
+  Montserrat_700Bold,
+  Montserrat_600SemiBold,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+} from '@expo-google-fonts/montserrat';
 import styled, { ThemeProvider } from 'styled-components/native';
-import { lightTheme, darkTheme } from './styles/theme';
+import { theme } from './styles/theme';
+import LandingPage from './pages/Landing';
+import HomePage from './pages/Home';
+import { DefaultTheme } from 'styled-components/native';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const colorScheme = useColorScheme();
+  const [colorTheme, setColorTheme] = useState<DefaultTheme | null>(null);
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
+    Montserrat_600SemiBold,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
   });
+  const colorScheme = useColorScheme();
+
+  useEffect(() => {
+    colorScheme && setColorTheme({ fonts: theme.fonts, color: theme.color[colorScheme] });
+  }, [colorScheme]);
 
   if (!fontsLoaded) {
     return null;
   }
-  console.log('ee', colorScheme);
+
+  console.log('theme', colorTheme);
   return (
-    <ThemeProvider theme={colorScheme === 'dark' ? darkTheme : lightTheme}>
-      <Container>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <StatusBar style="auto" />
-      </Container>
+    <ThemeProvider theme={colorTheme!}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Landing" component={LandingPage} />
+          <Stack.Screen name="Home" component={HomePage} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.PRIMARY_COLOR};
-  align-items: center;
-  justify-content: center;
-`;
