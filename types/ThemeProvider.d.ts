@@ -2,20 +2,24 @@
 import 'styled-components/native';
 import { theme } from '../styles/theme';
 
-type ThemeInterface = {
+export type ThemeInterface = {
   color: {
-    PRIMARY_COLOR: string;
-    SECONDARY_COLOR: string;
-    TEXT_COLOR: string;
-    BG: string;
-    BUTTON_BG: string;
-    BUTTON_TEXT: string;
+    primary: string;
+    secondary: string;
+    black: string;
+    grey: string;
+    bg: string;
+    pale_grey: string;
+    btn_bg: string;
+    btn_text: string;
   };
   fonts: {
+    light: string;
     regular: string;
     medium: string;
     semiBold: string;
     bold: string;
+    extra: string;
   };
 };
 

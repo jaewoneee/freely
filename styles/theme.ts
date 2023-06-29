@@ -1,25 +1,31 @@
 const darkTheme = {
-  PRIMARY_COLOR: '#459AAC',
-  SECONDARY_COLOR: '#F4B754',
-  TEXT_COLOR: '#F0F0F0',
-  BG: '#000',
-  BUTTON_BG: '#F0F0F0',
-  BUTTON_TEXT: '#2F2F2F',
+  primary: '#459AAC',
+  secondary: '#F4B754',
+  black: '#F0F0F0',
+  pale_grey: '#BDBDBD',
+  grey: '#B6B6B6',
+  bg: '#000',
+  btn_bg: '#F0F0F0',
+  btn_text: '#2F2F2F',
 };
 const lightTheme = {
-  PRIMARY_COLOR: '#459AAC',
-  SECONDARY_COLOR: '#F4B754',
-  TEXT_COLOR: '#272526',
-  BG: '#111216',
-  BUTTON_BG: '#2F2F2F',
-  BUTTON_TEXT: '#F0F0F0',
+  primary: '#459AAC',
+  secondary: '#F4B754',
+  black: '#272526',
+  bg: '#ffffff',
+  pale_grey: '#BDBDBD',
+  grey: '#B6B6B6',
+  btn_bg: '#2F2F2F',
+  btn_text: '#F0F0F0',
 };
 
 export const fonts = {
-  regular: 'Montserrat_400Regular',
-  medium: 'Montserrat_500Medium',
-  semiBold: 'Montserrat_600SemiBold',
+  light: 'Jost_300Light',
+  regular: 'Jost_400Regular',
+  medium: 'Jost_500Medium',
+  semiBold: 'Jost_600SemiBold',
   bold: 'Montserrat_700Bold',
+  extra: 'Montserrat_800ExtraBold',
 };
 
 export const theme = {
