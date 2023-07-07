@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -20,8 +20,9 @@ import {
 import styled, { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
 import LandingPage from './pages/Landing';
-import HomePage from './pages/Home';
+
 import { DefaultTheme } from 'styled-components/native';
+import TabNavigation from './components/common/Tab';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={colorTheme!}>
+      <StatusBar style={colorScheme as 'dark' | 'auto' | 'light'} />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -55,7 +57,7 @@ export default function App() {
           }}
         >
           <Stack.Screen name="Landing" component={LandingPage} />
-          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Home" component={TabNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>
