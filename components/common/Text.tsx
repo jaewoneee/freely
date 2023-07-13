@@ -5,7 +5,7 @@ type TextPropsType = {
   text: string;
   size: 'XL' | 'L' | 'M' | 'S';
   weight: 'light' | 'regular' | 'medium' | 'semiBold' | 'bold' | 'extra';
-  color?: 'black' | 'grey' | 'pale_grey';
+  color?: 'black' | 'grey' | 'pale_grey' | 'primary' | 'secondary';
   align?: 'center' | 'left' | 'right';
 };
 
@@ -25,5 +25,5 @@ const TextBox = styled.Text<{ props: TextPropsType }>`
       ? '24px'
       : props.size === 'M'
       ? '16px'
-      : '14px'};
+      : '12px'};
 `;

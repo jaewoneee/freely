@@ -49,7 +49,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={colorTheme!}>
-      <StatusBar style={colorScheme as 'dark' | 'auto' | 'light'} />
+      <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{

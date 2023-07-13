@@ -2,7 +2,6 @@ import { styled } from 'styled-components/native';
 import Button from '../components/common/Button';
 import React from 'react';
 import CommonText from '../components/common/Text';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Safe from '../components/common/Safe';
 
 export default function LandingPage({ navigation }: { navigation: any }) {
@@ -43,7 +42,6 @@ const Landing = styled.View`
   padding: 24px 16px;
   flex: 1;
   background-color: ${({ theme }) => theme.color.bg};
-  background-color: red;
 `;
 
 const TitleBox = styled.View`
