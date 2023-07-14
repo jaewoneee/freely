@@ -23,6 +23,8 @@ import LandingPage from './pages/Landing';
 
 import { DefaultTheme } from 'styled-components/native';
 import TabNavigation from './components/common/Tab';
+import { ModalProvider } from './context/ModalContext';
+import Modal from './components/modal/Modal';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,18 +52,19 @@ export default function App() {
   return (
     <ThemeProvider theme={colorTheme!}>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Landing" component={LandingPage} />
-          <Stack.Screen name="Home" component={TabNavigation} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <ModalProvider>
+        <Modal />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Landing" component={LandingPage} />
+            <Stack.Screen name="Home" component={TabNavigation} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ModalProvider>
     </ThemeProvider>
   );
 }
-
-const Container = styled.View``;
