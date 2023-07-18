@@ -95,7 +95,7 @@ const Row = styled.View<{ flex?: number; border?: boolean }>`
 `;
 
 const BadgeBox = styled.View`
-  background-color: #cdfef6d0;
+  background-color: #d0fcf5d0;
   padding: 4px 8px;
   border-radius: 16px;
   flex-direction: row;

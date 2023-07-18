@@ -8,7 +8,7 @@ export default function Safe({
 }: {
   children: ReactElement | ReactElement[];
   gap?: number;
-  jusifyContent?: 'space-between' | 'center';
+  jusifyContent?: 'space-between' | 'center' | 'flex-end';
 }) {
   return (
     <SafeBox gap={gap} justifyContent={jusifyContent}>

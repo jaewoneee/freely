@@ -6,12 +6,12 @@ import { View, ScrollView, useColorScheme } from 'react-native';
 import Text from '../common/Text';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ModalContext } from '../../context/ModalContext';
-import { AirportContext } from '../../context/AirportContext';
+import { FlightContext } from '../../context/FlightContext';
 
 export default function Airport() {
   const colorScheme = useColorScheme();
   const { modalProps, closeModal } = useContext(ModalContext);
-  const { airportObj, setAirports } = useContext(AirportContext);
+  const { flightObj, setFlight } = useContext(FlightContext);
   const [currentCountry, setCurrentCountry] = useState('');
   const [airportList, setAirportList] = useState<any[]>([]);
 
@@ -30,12 +30,7 @@ export default function Airport() {
   };
 
   const selectAirport = (data: { iata_code: string; city: string }) => {
-    // if (modalProps === 'departure') {
-    //   setAirports({ ...airportObj, departure: data });
-    // } else {
-    //   setAirports({ ...airportObj, arrival: data });
-    // }
-    setAirports({ ...airportObj, [modalProps]: data });
+    setFlight({ ...flightObj, [modalProps]: data });
     closeModal();
   };
 

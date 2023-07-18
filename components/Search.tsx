@@ -4,14 +4,14 @@ import Button from './common/Button';
 import Text from './common/Text';
 import { AntDesign } from '@expo/vector-icons';
 import { ModalContext } from '../context/ModalContext';
-import { AirportContext } from '../context/AirportContext';
+import { FlightContext } from '../context/FlightContext';
 
 export default function Search() {
   const { openModal, setModalData } = useContext(ModalContext);
-  const { airportObj, setAirports } = useContext(AirportContext);
+  const { flightObj, setFlight } = useContext(FlightContext);
 
   const swapDepartureForArrival = () => {
-    setAirports({ departure: airportObj.arrival, arrival: airportObj.departure });
+    setFlight({ departure: flightObj.arrival, arrival: flightObj.departure });
   };
 
   return (
@@ -21,7 +21,7 @@ export default function Search() {
           <Text props={{ text: 'From', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: `${airportObj.departure.city} (${airportObj.departure.iata_code})`,
+              text: `${flightObj.departure.city} (${flightObj.departure.iata_code})`,
               callback: () => {
                 setModalData('departure');
                 openModal('airport');
@@ -34,7 +34,7 @@ export default function Search() {
           <Text props={{ text: 'To', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: `${airportObj.arrival.city} (${airportObj.arrival.iata_code})`,
+              text: `${flightObj.arrival.city} (${flightObj.arrival.iata_code})`,
               callback: () => {
                 setModalData('arrival');
                 openModal('airport');
@@ -54,8 +54,11 @@ export default function Search() {
           />
           <Button
             props={{
-              text: 'June 02, 2023',
-              callback: () => 'hello',
+              text: flightObj.departure.date,
+              callback: () => {
+                setModalData('departure');
+                openModal('calendar');
+              },
               textType: true,
             }}
           />
@@ -64,8 +67,11 @@ export default function Search() {
           <Text props={{ text: 'Return', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: 'June 03, 2023',
-              callback: () => console.log('hello'),
+              text: flightObj.arrival.date,
+              callback: () => {
+                setModalData('arrival');
+                openModal('calendar');
+              },
               textType: true,
             }}
           />

@@ -25,7 +25,7 @@ import { DefaultTheme } from 'styled-components/native';
 import TabNavigation from './components/common/Tab';
 import { ModalProvider } from './context/ModalContext';
 
-import { AirportProvider } from './context/AirportContext';
+import { FlightProvider } from './context/FlightContext';
 import Modal from './components/modal/Modal';
 
 const Stack = createNativeStackNavigator();
@@ -54,7 +54,7 @@ export default function App() {
   return (
     <ThemeProvider theme={colorTheme!}>
       <StatusBar style="auto" />
-      <AirportProvider>
+      <FlightProvider>
         <ModalProvider>
           <Modal />
           <NavigationContainer>
@@ -68,7 +68,7 @@ export default function App() {
             </Stack.Navigator>
           </NavigationContainer>
         </ModalProvider>
-      </AirportProvider>
+      </FlightProvider>
     </ThemeProvider>
   );
 }

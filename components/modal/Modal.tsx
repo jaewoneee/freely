@@ -5,6 +5,7 @@ import Airport from './Airport';
 import Safe from '../common/Safe';
 import { styled } from 'styled-components/native';
 import { AntDesign } from '@expo/vector-icons';
+import Calendar from './Calendar';
 
 export default function Modal() {
   const colorScheme = useColorScheme();
@@ -14,7 +15,8 @@ export default function Modal() {
     switch (modalName) {
       case 'airport':
         return <Airport />;
-
+      case 'calendar':
+        return <Calendar />;
       default:
         return <></>;
     }
@@ -25,14 +27,15 @@ export default function Modal() {
       <ModalContainer>
         <Safe>
           <TopBar>
-            <GoBackButton onPress={closeModal}>
+            <CloseButton onPress={closeModal}>
               <AntDesign
                 name="close"
                 size={24}
                 color={colorScheme === 'dark' ? 'white' : 'black'}
               />
-            </GoBackButton>
+            </CloseButton>
           </TopBar>
+
           {setModalComponent()}
         </Safe>
       </ModalContainer>
@@ -51,4 +54,4 @@ const TopBar = styled.View`
   align-items: flex-end;
   padding: 0 16px;
 `;
-const GoBackButton = styled.TouchableOpacity``;
+const CloseButton = styled.TouchableOpacity``;
