@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
@@ -30,6 +31,15 @@ import Modal from './components/modal/Modal';
 
 const Stack = createNativeStackNavigator();
 
+const AppProvider = ({ contexts, children }: { contexts: any; children: any }) =>
+  contexts.reduce(
+    (prev: any, context: any) =>
+      React.createElement(context, {
+        children: prev,
+      }),
+    children,
+  );
+
 export default function App() {
   const [colorTheme, setColorTheme] = useState<DefaultTheme | null>(null);
   const [fontsLoaded] = useFonts({
@@ -54,21 +64,19 @@ export default function App() {
   return (
     <ThemeProvider theme={colorTheme!}>
       <StatusBar style="auto" />
-      <FlightProvider>
-        <ModalProvider>
-          <Modal />
-          <NavigationContainer>
-            <Stack.Navigator
-              screenOptions={{
-                headerShown: false,
-              }}
-            >
-              <Stack.Screen name="Landing" component={LandingPage} />
-              <Stack.Screen name="Home" component={TabNavigation} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </ModalProvider>
-      </FlightProvider>
+      <AppProvider contexts={[ModalProvider, FlightProvider]}>
+        <Modal />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="Landing" component={LandingPage} />
+            <Stack.Screen name="Home" component={TabNavigation} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AppProvider>
     </ThemeProvider>
   );
 }

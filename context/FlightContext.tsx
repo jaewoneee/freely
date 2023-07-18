@@ -29,12 +29,12 @@ export const FlightProvider: React.FC<FlightProviderProps> = ({ children }) => {
     departure: {
       iata_code: 'ICN',
       city: 'Seoul/Incheon',
-      date: getFormatedDate(new Date(), 'YYYY/MM/DD'),
+      date: getFormatedDate(new Date(), 'YYYY/MM/DD') || '-',
     },
     arrival: {
       iata_code: 'JFK',
       city: 'New York',
-      date: getFormatedDate(new Date(), 'YYYY/MM/DD'),
+      date: getFormatedDate(new Date(), 'YYYY/MM/DD') || '-',
     },
   });
 
