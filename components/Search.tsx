@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { styled } from 'styled-components/native';
 import Button from './common/Button';
 import Text from './common/Text';
 import { AntDesign } from '@expo/vector-icons';
+import { ModalContext } from '../context/ModalContext';
+import { AirportContext } from '../context/AirportContext';
+
 export default function Search() {
-  const [departure, setDepartures] = useState('ICN');
-  const [arrival, setArrivals] = useState('hawaii');
+  const { openModal, setModalData } = useContext(ModalContext);
+  const { airportObj, setAirports } = useContext(AirportContext);
 
   const swapDepartureForArrival = () => {
-    setDepartures(arrival);
-    setArrivals(departure);
+    setAirports({ departure: airportObj.arrival, arrival: airportObj.departure });
   };
 
   return (
@@ -19,8 +21,11 @@ export default function Search() {
           <Text props={{ text: 'From', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: departure,
-              callback: () => console.log('hello'),
+              text: `${airportObj.departure.city} (${airportObj.departure.iata_code})`,
+              callback: () => {
+                setModalData('departure');
+                openModal('airport');
+              },
               textType: true,
             }}
           />
@@ -29,8 +34,11 @@ export default function Search() {
           <Text props={{ text: 'To', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: arrival,
-              callback: () => console.log('hello'),
+              text: `${airportObj.arrival.city} (${airportObj.arrival.iata_code})`,
+              callback: () => {
+                setModalData('arrival');
+                openModal('airport');
+              },
               textType: true,
             }}
           />
@@ -46,8 +54,8 @@ export default function Search() {
           />
           <Button
             props={{
-              text: departure,
-              callback: () => console.log('hello'),
+              text: 'June 02, 2023',
+              callback: () => 'hello',
               textType: true,
             }}
           />
@@ -56,7 +64,7 @@ export default function Search() {
           <Text props={{ text: 'Return', size: 'S', weight: 'medium', color: 'grey' }} />
           <Button
             props={{
-              text: departure,
+              text: 'June 03, 2023',
               callback: () => console.log('hello'),
               textType: true,
             }}

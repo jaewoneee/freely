@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { styled } from 'styled-components/native';
 import Safe from '../common/Safe';
 import data from '../../data/airports.json';
-import { View, TouchableOpacity } from 'react-native';
+import { View, ScrollView, useColorScheme } from 'react-native';
 import Text from '../common/Text';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ModalContext } from '../../context/ModalContext';
+import { AirportContext } from '../../context/AirportContext';
 
 export default function Airport() {
+  const colorScheme = useColorScheme();
+  const { modalProps, closeModal } = useContext(ModalContext);
+  const { airportObj, setAirports } = useContext(AirportContext);
   const [currentCountry, setCurrentCountry] = useState('');
   const [airportList, setAirportList] = useState<any[]>([]);
 
@@ -23,6 +29,16 @@ export default function Airport() {
     currentCountry === country ? setCurrentCountry('') : setCurrentCountry(country);
   };
 
+  const selectAirport = (data: { iata_code: string; city: string }) => {
+    // if (modalProps === 'departure') {
+    //   setAirports({ ...airportObj, departure: data });
+    // } else {
+    //   setAirports({ ...airportObj, arrival: data });
+    // }
+    setAirports({ ...airportObj, [modalProps]: data });
+    closeModal();
+  };
+
   useEffect(() => {
     const filteredAirport = data.filter((v) => {
       if (v.country === currentCountry) {
@@ -35,41 +51,89 @@ export default function Airport() {
   return (
     <AirportBox>
       <Safe>
-        {countryList.map(({ id, country }) => (
-          <View key={id}>
-            <CountryButton onPress={() => toggleAirportList(country)}>
-              <Text
-                props={{ text: country, size: 'L', weight: 'semiBold', color: 'black' }}
-              />
-            </CountryButton>
-            {currentCountry === country && (
-              <AirportList
-                data={airportList}
-                renderItem={({ item }: { item: any }) => (
-                  <View>
-                    <Text
-                      props={{
-                        text: item.iata_code,
-                        size: 'L',
-                        weight: 'regular',
-                        color: 'black',
-                      }}
-                    />
-                  </View>
-                )}
-                keyExtractor={(item: any) => item.objectID}
-              />
-            )}
-          </View>
-        ))}
+        <ScrollView>
+          {countryList.map(({ id, country }) => (
+            <View key={id} style={{ paddingHorizontal: 16 }}>
+              <CountryButton onPress={() => toggleAirportList(country)}>
+                <>
+                  <Text
+                    props={{
+                      text: country,
+                      size: 'L',
+                      weight: 'semiBold',
+                      color: 'black',
+                    }}
+                  />
+
+                  <MaterialIcons
+                    name={`keyboard-arrow-${currentCountry === country ? 'up' : 'down'}`}
+                    size={24}
+                    color={colorScheme === 'dark' ? 'white' : 'black'}
+                  />
+                </>
+              </CountryButton>
+              {currentCountry === country && (
+                <AirportScroll>
+                  <AirportList>
+                    {airportList.map((v) => (
+                      <AirportButton
+                        key={v.iata_code}
+                        onPress={() =>
+                          selectAirport({ iata_code: v.iata_code, city: v.city })
+                        }
+                      >
+                        <Text
+                          props={{
+                            text: v.iata_code,
+                            size: 'L',
+                            weight: 'medium',
+                            color: 'black',
+                          }}
+                        />
+                        <Text
+                          props={{
+                            text: v.city,
+                            size: 'M',
+                            weight: 'regular',
+                            color: 'black',
+                          }}
+                        />
+                      </AirportButton>
+                    ))}
+                  </AirportList>
+                </AirportScroll>
+              )}
+            </View>
+          ))}
+        </ScrollView>
       </Safe>
     </AirportBox>
   );
 }
 const AirportBox = styled.View`
   flex: 1;
-  padding: 0 16px;
+  /* padding: 0 16px; */
 `;
-const CountryButton = styled.TouchableOpacity``;
-const AirportList = styled.FlatList``;
-const AirportButton = styled.TouchableOpacity``;
+const CountryButton = styled.TouchableHighlight`
+  padding: 16px 0 8px 0;
+  border-bottom-width: 1px;
+  border-color: ${({ theme }) => theme.color.grey};
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const AirportScroll = styled.ScrollView``;
+const AirportList = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+  width: 100%;
+  margin-top: 12px;
+`;
+const AirportButton = styled.TouchableOpacity`
+  width: 31.8%;
+  padding: 8px;
+  border: 1px;
+  border-color: ${({ theme }) => theme.color.pale_grey};
+  border-radius: 8px;
+`;

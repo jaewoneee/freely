@@ -7,7 +7,7 @@ import Safe from '../components/common/Safe';
 export default function LandingPage({ navigation }: { navigation: any }) {
   return (
     <Landing>
-      <Safe>
+      <Safe jusifyContent="space-between">
         <TitleBox>
           <CommonText
             props={{
@@ -39,11 +39,13 @@ export default function LandingPage({ navigation }: { navigation: any }) {
 }
 
 const Landing = styled.View`
-  padding: 24px 16px;
+  padding: 100px 16px 100px 16px;
   flex: 1;
   background-color: ${({ theme }) => theme.color.bg};
+  justify-content: center;
 `;
 
 const TitleBox = styled.View`
   margin-block: 16px;
+  gap: 16px;
 `;

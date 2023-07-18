@@ -17,13 +17,15 @@ import {
   Jost_500Medium,
   Jost_600SemiBold,
 } from '@expo-google-fonts/jost';
-import styled, { ThemeProvider } from 'styled-components/native';
+import { ThemeProvider } from 'styled-components/native';
 import { theme } from './styles/theme';
 import LandingPage from './pages/Landing';
 
 import { DefaultTheme } from 'styled-components/native';
 import TabNavigation from './components/common/Tab';
 import { ModalProvider } from './context/ModalContext';
+
+import { AirportProvider } from './context/AirportContext';
 import Modal from './components/modal/Modal';
 
 const Stack = createNativeStackNavigator();
@@ -52,19 +54,21 @@ export default function App() {
   return (
     <ThemeProvider theme={colorTheme!}>
       <StatusBar style="auto" />
-      <ModalProvider>
-        <Modal />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Landing" component={LandingPage} />
-            <Stack.Screen name="Home" component={TabNavigation} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ModalProvider>
+      <AirportProvider>
+        <ModalProvider>
+          <Modal />
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="Landing" component={LandingPage} />
+              <Stack.Screen name="Home" component={TabNavigation} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ModalProvider>
+      </AirportProvider>
     </ThemeProvider>
   );
 }

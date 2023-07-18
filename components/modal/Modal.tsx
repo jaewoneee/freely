@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Modal as RNModal, useColorScheme } from 'react-native';
+import { Modal as RNModal, useColorScheme } from 'react-native';
 import { ModalContext } from '../../context/ModalContext';
 import Airport from './Airport';
 import Safe from '../common/Safe';
