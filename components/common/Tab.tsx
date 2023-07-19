@@ -12,10 +12,12 @@ import {
 } from '@expo/vector-icons';
 import NotificationPage from '../../pages/Notification';
 import { useColorScheme } from 'react-native';
+import LoginPage from '../../pages/Login';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
+  const isSignedIn = false;
   const colorScheme = useColorScheme();
   const setTabIconColor = (focused: boolean) =>
     focused ? '#459AAC' : colorScheme === 'dark' ? 'white' : 'black';
@@ -56,7 +58,7 @@ export default function TabNavigation() {
     },
     {
       name: 'ProfileScreen',
-      component: ProfilePage,
+      component: isSignedIn ? ProfilePage : LoginPage,
       tabBarIcon: ({ focused }: { focused: boolean }) => {
         return <Octicons name="person" size={21} color={setTabIconColor(focused)} />;
       },
