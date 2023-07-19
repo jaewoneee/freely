@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { styled } from 'styled-components/native';
 import Button from './common/Button';
-import Text from './common/Text';
+import CommonText from './common/Text';
 import { AntDesign } from '@expo/vector-icons';
 import { ModalContext } from '../context/ModalContext';
 import { FlightContext } from '../context/FlightContext';
@@ -18,7 +18,9 @@ export default function Search() {
     <SearchBox>
       <CountryBox>
         <Select>
-          <Text props={{ text: 'From', size: 'S', weight: 'medium', color: 'grey' }} />
+          <CommonText
+            props={{ text: 'From', size: 'S', weight: 'medium', color: 'grey' }}
+          />
           <Button
             props={{
               text: `${flightObj.departure.city} (${flightObj.departure.iata_code})`,
@@ -31,7 +33,9 @@ export default function Search() {
           />
         </Select>
         <Select>
-          <Text props={{ text: 'To', size: 'S', weight: 'medium', color: 'grey' }} />
+          <CommonText
+            props={{ text: 'To', size: 'S', weight: 'medium', color: 'grey' }}
+          />
           <Button
             props={{
               text: `${flightObj.arrival.city} (${flightObj.arrival.iata_code})`,
@@ -49,7 +53,7 @@ export default function Search() {
       </CountryBox>
       <DateBox>
         <Select>
-          <Text
+          <CommonText
             props={{ text: 'Departure', size: 'S', weight: 'medium', color: 'grey' }}
           />
           <Button
@@ -64,7 +68,9 @@ export default function Search() {
           />
         </Select>
         <Select>
-          <Text props={{ text: 'Return', size: 'S', weight: 'medium', color: 'grey' }} />
+          <CommonText
+            props={{ text: 'Return', size: 'S', weight: 'medium', color: 'grey' }}
+          />
           <Button
             props={{
               text: flightObj.arrival.date,

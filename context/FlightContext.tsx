@@ -14,8 +14,8 @@ interface FlightContextInterface {
 
 export const FlightContext = createContext<FlightContextInterface>({
   flightObj: {
-    departure: { iata_code: 'ICN', city: 'Seoul/Incheon', date: 'June 02, 2023' },
-    arrival: { iata_code: 'JFK', city: 'New York', date: 'June 02, 2023' },
+    departure: {},
+    arrival: {},
   },
   setFlight: () => {},
 });

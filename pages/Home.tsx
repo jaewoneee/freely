@@ -6,7 +6,7 @@ import Search from '../components/Search';
 import Safe from '../components/common/Safe';
 import Upcoming from '../components/Upcoming';
 
-export default function HomePage() {
+export default function HomePage({ navigation }: { navigation: any }) {
   return (
     <Home>
       <Safe gap={24}>
@@ -25,7 +25,7 @@ export default function HomePage() {
           />
         </Greeting>
         <Search />
-        <Upcoming />
+        <Upcoming navigation={navigation} />
       </Safe>
     </Home>
   );

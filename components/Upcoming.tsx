@@ -1,10 +1,10 @@
 import React from 'react';
 import { css, styled } from 'styled-components/native';
-import Text from './common/Text';
-import Button from './common/Button';
+import CommonText from './common/Text';
 import { Feather } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
 
-export default function Upcoming() {
+export default function Upcoming({ navigation }: { navigation: any }) {
   const dummyData = [
     { city: 'Chicago', iata_code: 'ORD' },
     { city: 'Atlanta', iata_code: 'ATL' },
@@ -13,14 +13,18 @@ export default function Upcoming() {
   return (
     <UpcomingBox>
       <Topper>
-        <Text props={{ text: 'Upcoming Flight', size: 'L', weight: 'bold' }} />
-        <Button
-          props={{
-            text: 'See All',
-            textType: true,
-            callback: () => console.log('hello'),
-          }}
-        />
+        <CommonText props={{ text: 'Upcoming Flight', size: 'L', weight: 'bold' }} />
+
+        <Pressable onPress={() => navigation.navigate('TicketScreen')}>
+          <CommonText
+            props={{
+              text: 'See All',
+              color: 'primary',
+              weight: 'bold',
+              size: 'M',
+            }}
+          />
+        </Pressable>
       </Topper>
       <Ticket>
         <Row flex={0.5} border>
@@ -41,7 +45,7 @@ function Badge({ text, type }: { text: string; type: 'clock' | 'calendar' }) {
   return (
     <BadgeBox>
       <Feather name={type} size={16} color="#459AAC" />
-      <Text props={{ text, size: 'M', weight: 'medium', color: 'primary' }} />
+      <CommonText props={{ text, size: 'M', weight: 'medium', color: 'primary' }} />
     </BadgeBox>
   );
 }
@@ -51,8 +55,10 @@ function Item({ data }: { data: { iata_code: string; city: string }[] }) {
     <>
       {data.map((v) => (
         <ItemBox key={v.iata_code}>
-          <Text props={{ text: v.iata_code, weight: 'bold', size: 'L' }} />
-          <Text props={{ text: v.city, color: 'grey', weight: 'regular', size: 'M' }} />
+          <CommonText props={{ text: v.iata_code, weight: 'bold', size: 'L' }} />
+          <CommonText
+            props={{ text: v.city, color: 'grey', weight: 'regular', size: 'M' }}
+          />
         </ItemBox>
       ))}
     </>
