@@ -30,7 +30,8 @@ export default function Airport() {
   };
 
   const selectAirport = (data: { iata_code: string; city: string }) => {
-    setFlight({ ...flightObj, [modalProps]: data });
+    const newObj = { ...flightObj[modalProps], ...data };
+    setFlight({ ...flightObj, newObj });
     closeModal();
   };
 
