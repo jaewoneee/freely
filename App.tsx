@@ -28,10 +28,7 @@ import { ModalProvider } from './context/ModalContext';
 
 import { FlightProvider } from './context/FlightContext';
 import Modal from './components/modal/Modal';
-import NotificationPage from './pages/Notification';
-import ProfilePage from './pages/Profile';
-import LoginPage from './pages/Login';
-import TicketPage from './pages/Ticket';
+import SignUpPage from './pages/SignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +74,7 @@ export default function App() {
             }}
           >
             <Stack.Screen name="Landing" component={LandingPage} />
+            <Stack.Screen name="SignUp" component={SignUpPage} />
             <Stack.Screen name="Home" component={TabNavigation} />
           </Stack.Navigator>
         </NavigationContainer>
