@@ -78,7 +78,7 @@ const Login = styled.View`
 `;
 
 const FormBox = styled.View`
-  flex: 1;
+  flex: 0.9;
   gap: 14px;
   justify-content: center;
 `;

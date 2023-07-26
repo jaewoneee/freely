@@ -1,9 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'react-native';
+import { TouchableOpacity, useColorScheme, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   useFonts,
@@ -68,14 +69,35 @@ export default function App() {
       <AppProvider contexts={[ModalProvider, FlightProvider]}>
         <Modal />
         <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="Landing" component={LandingPage} />
-            <Stack.Screen name="SignUp" component={SignUpPage} />
-            <Stack.Screen name="Home" component={TabNavigation} />
+          <Stack.Navigator screenOptions={{ headerTitle: '' }}>
+            <Stack.Screen
+              name="Landing"
+              component={LandingPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpPage}
+              options={({ navigation }) => ({
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
+                    <Ionicons
+                      name="chevron-back-outline"
+                      size={24}
+                      color={colorScheme === 'light' ? '#1e1e1e' : '#fff'}
+                    />
+                  </TouchableOpacity>
+                ),
+                headerStyle: {
+                  backgroundColor: colorScheme === 'dark' ? '#1e1e1e' : '#fff',
+                },
+              })}
+            />
+            <Stack.Screen
+              name="Home"
+              component={TabNavigation}
+              options={{ headerShown: false }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </AppProvider>

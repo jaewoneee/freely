@@ -26,18 +26,14 @@ export default function SignUpPage() {
             </View>
             <View>
               <CommonText props={{ text: 'Password', size: 'M', weight: 'regular' }} />
-              <CommonInput
-                secureTextEntry={true}
-                value={password}
-                onChangeText={setPassword}
-              />
+              <CommonInput secureTextEntry value={password} onChangeText={setPassword} />
             </View>
             <View>
               <CommonText
                 props={{ text: 'Confirmed Password', size: 'M', weight: 'regular' }}
               />
               <CommonInput
-                secureTextEntry={true}
+                secureTextEntry
                 value={confirmedPassword}
                 onChangeText={setConfirmedPassword}
               />
@@ -66,7 +62,7 @@ const SignUp = styled.View`
   padding: 16px;
 `;
 const FormBox = styled.View`
-  flex: 1;
+  flex: 0.9;
   gap: 14px;
   justify-content: center;
 `;

@@ -11,7 +11,10 @@ export default function Search() {
   const { flightObj, setFlight } = useContext(FlightContext);
 
   const swapDepartureForArrival = () => {
-    setFlight({ departure: flightObj.arrival, arrival: flightObj.departure });
+    setFlight({
+      departure: { ...flightObj.arrival, date: flightObj.departure.date },
+      arrival: { ...flightObj.departure, date: flightObj.arrival.date },
+    });
   };
 
   return (
