@@ -4,10 +4,25 @@ import Safe from '../components/common/Safe';
 import CommonText from '../components/common/Text';
 import Button from '../components/common/Button';
 import { View, TouchableWithoutFeedback, Keyboard, Pressable } from 'react-native';
+import { useLogin } from '../api/user';
+import { setStorageData } from '../utils/storage';
 
 export default function LoginPage({ navigation }: { navigation: any }) {
   const [username, setUsername] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
+  const { mutate: login } = useLogin();
+
+  const handleLogin = () => {
+    if (username && password)
+      login(
+        { username, password },
+        {
+          onSuccess: (data) => {
+            setStorageData('token', data);
+          },
+        },
+      );
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -32,7 +47,7 @@ export default function LoginPage({ navigation }: { navigation: any }) {
             <Button
               props={{
                 text: 'Login',
-                callback: () => console.log('login'),
+                callback: handleLogin,
                 disabled: !username || !password ? true : false,
                 point: username && password ? true : false,
               }}

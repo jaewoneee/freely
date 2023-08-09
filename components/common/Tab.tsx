@@ -13,11 +13,12 @@ import {
 import NotificationPage from '../../pages/Notification';
 import { useColorScheme } from 'react-native';
 import LoginPage from '../../pages/Login';
+import { getStorageData } from '../../utils/storage';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
-  const isSignedIn = false;
+  const isSignedIn = getStorageData('token');
   const colorScheme = useColorScheme();
   const setTabIconColor = (focused: boolean) =>
     focused ? '#459AAC' : colorScheme === 'dark' ? 'white' : 'black';
