@@ -5,6 +5,7 @@ import { TouchableOpacity, useColorScheme, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import {
   useFonts,
@@ -32,6 +33,9 @@ import Modal from './components/modal/Modal';
 import SignUpPage from './pages/SignUp';
 
 const Stack = createNativeStackNavigator();
+
+// Create a client
+const queryClient = new QueryClient();
 
 const AppProvider = ({ contexts, children }: { contexts: any; children: any }) =>
   contexts.reduce(
@@ -64,43 +68,47 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={colorTheme!}>
-      <StatusBar style="auto" />
-      <AppProvider contexts={[ModalProvider, FlightProvider]}>
-        <Modal />
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerTitle: '' }}>
-            <Stack.Screen
-              name="Landing"
-              component={LandingPage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUpPage}
-              options={({ navigation }) => ({
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
-                    <Ionicons
-                      name="chevron-back-outline"
-                      size={24}
-                      color={colorScheme === 'light' ? '#1e1e1e' : '#fff'}
-                    />
-                  </TouchableOpacity>
-                ),
-                headerStyle: {
-                  backgroundColor: colorScheme === 'dark' ? '#1e1e1e' : '#fff',
-                },
-              })}
-            />
-            <Stack.Screen
-              name="Home"
-              component={TabNavigation}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AppProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={colorTheme!}>
+        <StatusBar style="auto" />
+        <AppProvider contexts={[ModalProvider, FlightProvider]}>
+          <Modal />
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerTitle: '' }}>
+              <Stack.Screen
+                name="Landing"
+                component={LandingPage}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={SignUpPage}
+                options={({ navigation }) => ({
+                  headerLeft: () => (
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('ProfileScreen')}
+                    >
+                      <Ionicons
+                        name="chevron-back-outline"
+                        size={24}
+                        color={colorScheme === 'light' ? '#1e1e1e' : '#fff'}
+                      />
+                    </TouchableOpacity>
+                  ),
+                  headerStyle: {
+                    backgroundColor: colorScheme === 'dark' ? '#1e1e1e' : '#fff',
+                  },
+                })}
+              />
+              <Stack.Screen
+                name="Home"
+                component={TabNavigation}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AppProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
