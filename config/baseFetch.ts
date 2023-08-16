@@ -1,5 +1,6 @@
+import React from 'react';
 import axios, { AxiosRequestConfig } from 'axios';
-
+import { SERVER_URL } from 'react-native-dotenv';
 import { getStorageData } from '../utils/storage';
 
 const axiosFetch = async ({
@@ -12,10 +13,10 @@ const axiosFetch = async ({
   method?: 'get' | 'post';
 }) => {
   const token = await getStorageData('token');
-  console.log('tt', token);
+  console.log('tt', token, url, data, method);
   const sendOption: AxiosRequestConfig = {
     method,
-    url: process.env.SERVER_URL + url,
+    url: SERVER_URL + url,
     headers: {
       Authorization: token ? `Bearer ${token}` : '',
     },
@@ -32,9 +33,12 @@ const axiosFetch = async ({
         break;
     }
   }
-
-  const result = await axios(sendOption);
-  return result.data;
+  try {
+    const result = await axios(sendOption);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default axiosFetch;

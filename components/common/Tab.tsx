@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from '../../pages/Home';
@@ -13,15 +13,25 @@ import {
 import NotificationPage from '../../pages/Notification';
 import { useColorScheme } from 'react-native';
 import LoginPage from '../../pages/Login';
-import { getStorageData } from '../../utils/storage';
+import { getStorageData, checkExistence } from '../../utils/storage';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
-  const isSignedIn = getStorageData('token');
+  const existence = (async () => {
+    await checkExistence('token');
+  })();
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const colorScheme = useColorScheme();
   const setTabIconColor = (focused: boolean) =>
     focused ? '#459AAC' : colorScheme === 'dark' ? 'white' : 'black';
+
+  useEffect(() => {
+    (async () => {
+      const x = await getStorageData('token');
+      setIsSignedIn(x ? true : false);
+    })();
+  }, [existence]);
 
   const tabList = [
     {

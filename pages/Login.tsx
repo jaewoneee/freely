@@ -18,7 +18,7 @@ export default function LoginPage({ navigation }: { navigation: any }) {
         { username, password },
         {
           onSuccess: (data) => {
-            setStorageData('token', data);
+            data && setStorageData('token', data);
           },
         },
       );

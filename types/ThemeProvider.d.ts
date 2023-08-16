@@ -2,7 +2,7 @@
 import 'styled-components/native';
 import { theme } from '../styles/theme';
 
-export type ThemeInterface = {
+export interface ThemeInterface {
   color: {
     primary: string;
     secondary: string;
@@ -21,7 +21,7 @@ export type ThemeInterface = {
     bold: string;
     extra: string;
   };
-};
+}
 
 declare module 'styled-components/native' {
   interface DefaultTheme extends ThemeInterface {}
